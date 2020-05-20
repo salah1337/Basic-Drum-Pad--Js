@@ -9,12 +9,18 @@ let controlKeys = ['L', 'K', 'J', 'H', 'G', 'F', 'D', 'S', 'Q']
 
 
 //Adding name to pads (from src value)
-sounds.forEach((sound, index) => {
-    let folderName = 'samples/'
-    const nameWithExt = sounds[index].src.split(folderName).pop();
-    pads[index].children[0].innerHTML = nameWithExt.substring(0, nameWithExt.indexOf(".wav"));
-})
-
+function namePads() {
+    sounds.forEach((sound, index) => {
+        let folderName = 'samples/'
+        const nameWithExt = sounds[index].src.split(folderName).pop();
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+            pads[index].children[0].innerHTML = nameWithExt.substring(0, nameWithExt.indexOf(".wav"));
+        }else{
+            pads[index].children[0].innerHTML = controlKeys[index] + '-' + nameWithExt.substring(0, nameWithExt.indexOf(".wav"));
+        }
+    })
+}
+namePads();
 //Adding event listeners to each pad
 
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -77,6 +83,7 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
                 }
             })    
             controlKeys[index] = newKey;
+            namePads();
         })
     })
 }
