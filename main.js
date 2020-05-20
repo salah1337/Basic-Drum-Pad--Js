@@ -7,45 +7,14 @@ const soundName = nameWithExt.substring(0, nameWithExt.indexOf(".wav"));
 
 let controlKeys = ['L', 'K', 'J', 'H', 'G', 'F', 'D', 'S', 'Q']
 
-//
-labels.forEach((label, index) => {
-    label.addEventListener('click',() => {
-        let newKey = prompt('What key do you wanna map this to?').toUpperCase();
-        controlKeys.forEach((key, index) => {
-            if( newKey == key){
-                alert('That key is already bound to another pad.')
-                return 
-            }
-        })    
-        controlKeys[index] = newKey;
-    })
-})
+
 //Adding name to pads (from src value)
 sounds.forEach((sound, index) => {
     let folderName = 'samples/'
     const nameWithExt = sounds[index].src.split(folderName).pop();
     pads[index].children[0].innerHTML = nameWithExt.substring(0, nameWithExt.indexOf(".wav"));
 })
-//Key press play 
-window.addEventListener('keydown', (e) => {
-    e = e || window.event
-    let letter = String.fromCharCode(e.KeyCode || e.which).toUpperCase()  
-    controlKeys.forEach((key, index) => {
-        if( key == letter){
-            playSound(index)
-            pads[index].classList.add('pad-clicked');
-        }
-    })
-})
-window.addEventListener('keyup', (e) => {
-    e = e || window.event
-    let letter = String.fromCharCode(e.KeyCode || e.which).toUpperCase()  
-    controlKeys.forEach((key, index) => {
-        if( key == letter){
-            pads[index].classList.remove('pad-clicked');
-        }
-    })
-})
+
 //Adding event listeners to each pad
 
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -75,6 +44,40 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
             pad.classList.remove('pad-clicked')
         })
         
+    })
+    //Key press play 
+    window.addEventListener('keydown', (e) => {
+        e = e || window.event
+        let letter = String.fromCharCode(e.KeyCode || e.which).toUpperCase()  
+        controlKeys.forEach((key, index) => {
+            if( key == letter){
+                playSound(index)
+                pads[index].classList.add('pad-clicked');
+            }
+        })
+    })
+    window.addEventListener('keyup', (e) => {
+        e = e || window.event
+        let letter = String.fromCharCode(e.KeyCode || e.which).toUpperCase()  
+        controlKeys.forEach((key, index) => {
+            if( key == letter){
+                pads[index].classList.remove('pad-clicked');
+            }
+        })
+    })
+    //
+    //
+    labels.forEach((label, index) => {
+        label.addEventListener('click',() => {
+            let newKey = prompt('What key do you wanna map this to?').toUpperCase();
+            controlKeys.forEach((key, index) => {
+                if( newKey == key){
+                    alert('That key is already bound to another pad.')
+                    return 
+                }
+            })    
+            controlKeys[index] = newKey;
+        })
     })
 }
 function playSound(index) {
