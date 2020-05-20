@@ -15,6 +15,7 @@ body{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    margin: 0 auto;
 }
 #wrapper{
     height: 100vh;
@@ -30,7 +31,7 @@ body{
 }
 #pads{
     height: 85vh;
-    width: 85vw;
+    width: 95vw;
     max-height: 650px;
     max-width: 650px;
     grid-row-gap: 10px;

@@ -47,19 +47,36 @@ window.addEventListener('keyup', (e) => {
     })
 })
 //Adding event listeners to each pad
-pads.forEach((pad, index) => {
-    pad.addEventListener('mousedown', () => {
-        pad.classList.add('pad-clicked');
-        playSound(index);
+
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    pads.forEach((pad, index) => {
+        pad.addEventListener('touchstart', () => {
+            pad.classList.add('pad-clicked');
+            playSound(index);
+        })
+        pad.addEventListener('touchend', () => {
+            pad.classList.remove('pad-clicked')
+        })
+        pad.addEventListener('touchcancel', () => {
+            pad.classList.remove('pad-clicked')
+        })
+        
     })
-    pad.addEventListener('mouseup', () => {
-        pad.classList.remove('pad-clicked')
+}else{
+    pads.forEach((pad, index) => {
+        pad.addEventListener('mousedown', () => {
+            pad.classList.add('pad-clicked');
+            playSound(index);
+        })
+        pad.addEventListener('mouseup', () => {
+            pad.classList.remove('pad-clicked')
+        })
+        pad.addEventListener('mouseleave', () => {
+            pad.classList.remove('pad-clicked')
+        })
+        
     })
-    pad.addEventListener('mouseleave', () => {
-        pad.classList.remove('pad-clicked')
-    })
-    
-})
+}
 function playSound(index) {
     if ( !sounds[index].paused ){
         stopSound(index)
