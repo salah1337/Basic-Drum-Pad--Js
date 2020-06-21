@@ -75,13 +75,16 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
     //
     labels.forEach((label, index) => {
         label.addEventListener('click',() => {
+            let err = false;
             let newKey = prompt('What key do you wanna map this to?').toUpperCase();
             controlKeys.forEach((key, index) => {
                 if( newKey == key){
                     alert('That key is already bound to another pad.')
-                    break;
+                    err = true;
+                    return;
                 }
             })    
+            if (err) return;
             controlKeys[index] = newKey;
             namePads();
         })
