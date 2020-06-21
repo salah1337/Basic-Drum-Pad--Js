@@ -79,7 +79,7 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
             controlKeys.forEach((key, index) => {
                 if( newKey == key){
                     alert('That key is already bound to another pad.')
-                    return 
+                    break;
                 }
             })    
             controlKeys[index] = newKey;
